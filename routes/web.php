@@ -2,15 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminDashboard;
 use App\Http\Controllers\Admin\AdminBook;
 use App\Http\Controllers\Admin\AdminRack;
 use App\Http\Controllers\Admin\AdminUser;
 use App\Http\Controllers\Auth\AuthController;
 
-Route::get('/', function () {
-    return redirect('/admin');
-});
+// Route::get('/', function () {
+//     return redirect('/admin');
+// });
+
+Route::get('/', [HomeController::class, 'index']);
 
 // ADMIN AUTH
 Route::get('/login', [AuthController::class, 'index'])->name('login');

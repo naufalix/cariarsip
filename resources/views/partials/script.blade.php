@@ -1,23 +1,17 @@
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+<!-- Datatable -->
 <script src="/plugins/datatables.net-bs4/jquery.dataTables.js"></script>
 <script src="/plugins/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/adminlte.min.js"></script>
-
-<script>
-  $(document).ready(function () {
-    $('#myTable').DataTable({
-      "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All Pages"]],
-      "pageLength": 25,
-      "language": {
-        "paginate": {
-          "previous": "<",
-          "next": ">"
-        }
-      }
-    });
-  });
-</script>

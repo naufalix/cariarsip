@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  @include('partials.head')
+  @include('partials.admin-head')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -24,14 +24,14 @@
 
   <div class="wrapper">
     
-    @include('partials.navbar')
-    @include('partials.sidebar')
+    @include('partials.admin-navbar')
+    @include('partials.admin-sidebar')
       
     <div class="content-wrapper">
       @yield('content')
     </div>
     
-    @include('partials.footer')
+    @include('partials.admin-footer')
 
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
@@ -40,7 +40,7 @@
   </div>
   <!-- ./wrapper -->
 
-  @include('partials.script')
+  @include('partials.admin-script')
 
 </body>
 </html>
