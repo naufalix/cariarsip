@@ -18,9 +18,10 @@
         <table id="myTable" class="table table-striped border">
           <thead>
             <tr>
+              <th style="width: 100px">Rak</th>
+              <th style="width: 150px">Nomor outner</th>
+              <th style="width: 150px">Tahun</th>
               <th>Nama arsip</th>
-              <th style="width: 100px">Kode</th>
-              <th style="width: 150px">Rak</th>
               <th style="width: 200px">Actions</th>
             </tr>
           </thead>
@@ -30,14 +31,17 @@
                 $updated = date_create($b->updated_at);
               @endphp
               <tr>
-                <td>{{ $b->name }}</td>
-                <td>{{ $b->code }}</td>
                 <td>
-                  <span class="badge bg-success">{{ $b->rack->name }}</span>
+                  {{-- <span class="badge bg-success">{{ $b->rack->name }}</span> --}}
+                  {{ $b->rack->name }}
                 </td>
+                <td>{{ $b->outner }}</td>
+                <td>{{ $b->year }}</td>
+                <td>{{ $b->title }}</td>
                 <td>
-                  <button class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#edit" onclick="edit({{$b->id}})"><i class="fa fa-pen"></i></buuton>
-                  <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus" onclick="hapus({{$b->id}})"><i class="fa fa-times"></i></buuton>
+                  @if ($b->recap)
+                    <a class="btn btn-sm btn-primary" target="_blank" href="/recap/{{ $b->recap }}">Detail</a>
+                  @endif
                 </td>
               </tr>
               @endforeach

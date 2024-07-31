@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
         Rack::create(["name" => "Rak 2"]);
         Rack::create(["name" => "Rak 3"]);
         
-        Book::create(["name" => "Buku 1","rack_id" => 1,"code" => 1001]);
-        Book::create(["name" => "Buku 2","rack_id" => 2,"code" => 1002]);
-        Book::create(["name" => "Buku 3","rack_id" => 3,"code" => 1003]);
+        Book::create(["title" => "Buku 1","rack_id" => 1,"year"=>2024,"outner" => 1001,"recap"=>""]);
+        Book::create(["title" => "Buku 2","rack_id" => 2,"year"=>2024,"outner" => 1002,"recap"=>""]);
+        Book::create(["title" => "Buku 3","rack_id" => 3,"year"=>2024,"outner" => 1003,"recap"=>""]);
     }
 }

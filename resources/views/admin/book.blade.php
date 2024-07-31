@@ -22,11 +22,11 @@
           <table id="myTable" class="table table-bordered" style="min-width: 800px">
             <thead>
               <tr>
-                <th style="width: 10px">No.</th>
-                <th>Nama arsip</th>
-                <th style="width: 100px">Kode</th>
-                <th style="width: 150px">Rak</th>
-                <th style="width: 200px">Terakhir diubah</th>
+                <th style="width: 100px">Rak</th>
+                <th style="width: 120px">Nomor outner</th>
+                <th style="width: 80px">Tahun</th>
+                <th>Judul arsip</th>
+                <th style="width: 180px">Terakhir diubah</th>
                 <th style="width: 200px">Actions</th>
               </tr>
             </thead>
@@ -36,14 +36,17 @@
                   $updated = date_create($b->updated_at);
               @endphp
               <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{ $b->name }}</td>
-                <td>{{ $b->code }}</td>
                 <td>
                   <span class="badge bg-success">{{ $b->rack->name }}</span>
                 </td>
+                <td>{{ $b->outner }}</td>
+                <td>{{ $b->year }}</td>
+                <td>{{ $b->title }}</td>
                 <td>{{ date_format($updated,"d F Y H:i") }}</td>
                 <td>
+                  @if ($b->recap)
+                    <a class="btn btn-sm btn-info mr-2" target="_blank" href="/recap/{{ $b->recap }}"><i class="fa fa-file"></i></a>
+                  @endif
                   <button class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#edit" onclick="edit({{$b->id}})"><i class="fa fa-pen"></i></buuton>
                   <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus" onclick="hapus({{$b->id}})"><i class="fa fa-times"></i></buuton>
                 </td>
@@ -68,17 +71,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama arsip</label>
-            <input class="form-control" name="name" id="name" required>
+            <label>Judul arsip</label>
+            <input class="form-control" name="title" id="title" required>
           </div>
           <div class="form-group row">
             <div class="col-6">
-              <label>Kode arsip</label>
-              <input type="number" class="form-control" id="code" name="code" required>
+              <label>Nomor outner</label>
+              <input type="number" class="form-control" id="outner" name="outner" required>
             </div>
             <div class="col-6">
               <label>Pilih Rak</label>
@@ -87,6 +90,16 @@
                   <option value="{{$r->id}}">{{$r->name}}</option>
                 @endforeach
               </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-4">
+              <label>Tahun</label>
+              <input type="number" class="form-control" id="year" name="year" required>
+            </div>
+            <div class="col-8">
+              <label>Upload rekap</label>
+              <input type="file" class="form-control" id="recap" name="recap">
             </div>
           </div>
         </div>
@@ -109,18 +122,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         @csrf
         <input type="hidden" class="d-none" id="eid" name="id">
         <div class="modal-body">
           <div class="form-group">
-            <label>Nama arsip</label>
-            <input class="form-control" name="name" id="enm" required>
+            <label>Judul arsip</label>
+            <input class="form-control" name="title" id="eti" required>
           </div>
           <div class="form-group row">
             <div class="col-6">
-              <label>Kode arsip</label>
-              <input type="number" class="form-control" id="ecd" name="code" required>
+              <label>Nomor outner</label>
+              <input type="number" class="form-control" id="eot" name="outner" required>
             </div>
             <div class="col-6">
               <label>Pilih Rak</label>
@@ -129,6 +142,16 @@
                   <option value="{{$r->id}}">{{$r->name}}</option>
                 @endforeach
               </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-4">
+              <label>Tahun</label>
+              <input type="number" class="form-control" id="eyr" name="year" required>
+            </div>
+            <div class="col-8">
+              <label>Upload rekap</label>
+              <input type="file" class="form-control" id="erc" name="recap">
             </div>
           </div>
         </div>
@@ -177,10 +200,11 @@
       success: function(response) {
         var mydata = response.data;
         $("#eid").val(id);
-        $("#enm").val(mydata.name);
-        $("#ecd").val(mydata.code);
+        $("#eti").val(mydata.title);
+        $("#eyr").val(mydata.year);
+        $("#eot").val(mydata.outner);
         $("#eri").val(mydata.rack_id);
-        $("#et").text("Edit "+mydata.name);
+        $("#et").text("Edit "+mydata.title);
       }
     });
   }
@@ -192,7 +216,7 @@
       success: function(response) {
         var mydata = response.data;
         $("#hi").val(id);
-        $("#hd").text("Apakah anda yakin ingin menghapus "+mydata.name+"?");
+        $("#hd").text("Apakah anda yakin ingin menghapus "+mydata.title+"?");
       }
     });
   }

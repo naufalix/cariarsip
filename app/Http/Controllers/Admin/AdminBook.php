@@ -43,17 +43,40 @@ class AdminBook extends Controller
     public function store(Request $request){
         $validatedData = $request->validate([
             'rack_id' => 'required|numeric',
-            'name' => 'required',
-            'code' => 'required|numeric'
+            'title' => 'required',
+            'outner' => 'required|numeric',
+            'year' => 'required|numeric'
         ]);
 
-        $book = Book::whereCode($request->code)->first();
+        $book = Book::whereOutner($request->outner)->first();
 
         // Check book code
         if(!$book){
-            // Create new book
-            Book::create($validatedData);
-            return ['status'=>'success','message'=>'Arsip berhasil ditambahkan'];
+
+            // Check book recap
+            if($request->file('recap')){
+
+                // Validate data & move file
+                $validatedData = $request->validate([
+                    'rack_id' => 'required|numeric',
+                    'title' => 'required',
+                    'outner' => 'required|numeric',
+                    'year' => 'required|numeric',
+                    'recap' => 'required|image|file|max:1024',
+                ]);
+                $validatedData['recap'] = time().".png";
+                $request->file('recap')->move(public_path('recap'), $validatedData['recap']);
+                
+                // Create new book
+                Book::create($validatedData);
+                return ['status'=>'success','message'=>'Arsip berhasil ditambahkan']; 
+            }
+            else{
+                $validatedData['recap'] = "";
+                // Create new book
+                Book::create($validatedData);
+                return ['status'=>'success','message'=>'Arsip berhasil ditambahkan'];
+            }
         }else{
             return ['status'=>'error','message'=>'Kode telah terpakai'];
         }
@@ -64,29 +87,53 @@ class AdminBook extends Controller
         $validatedData = $request->validate([
             'id' => 'required|numeric',
             'rack_id' => 'required|numeric',
-            'name' => 'required',
-            'code' => 'required|numeric'
+            'title' => 'required',
+            'outner' => 'required|numeric',
+            'year' => 'required|numeric'
         ]);
 
         $book = Book::find($request->id);
-        $oldCode = $book->code;
-        $newCode = $request->code;
+        $oldOutner = $book->outner;
+        $newOutner = $request->outner;
 
 
         //Check if the book is found
         if($book){
             //Check code
-            if($newCode!=$oldCode){
-                if(Book::whereCode($request->code)->first()){
-                    return ['status'=>'error','message'=>'Code telah terpakai'];
-                }
-                // Update book
-                $book->update($validatedData);   
-                return ['status'=>'success','message'=>'Arsip berhasil diedit.']; 
+            if($newOutner!=$oldOutner && Book::whereOutner($request->outner)->first()){
+                return ['status'=>'error','message'=>'Outner telah terpakai'];
             }
-            // Update book
-            $book->update($validatedData);   
-            return ['status'=>'success','message'=>'Arsip berhasil diedit']; 
+            else{
+                // Check book recap
+                if($request->file('recap')){
+                    
+                    // Validate data & move file
+                    $validatedData = $request->validate([
+                        'rack_id' => 'required|numeric',
+                        'title' => 'required',
+                        'outner' => 'required|numeric',
+                        'year' => 'required|numeric',
+                        'recap' => 'required|image|file|max:1024',
+                    ]);
+
+                    // Delete old recap
+                    if($book->recap){
+                        $img_path = public_path().'/recap/'.$book->recap;
+                        unlink($img_path);         // Delete image
+                    }
+                    
+                    // Upload new recap
+                    $validatedData['recap'] = time().".png";
+                    $request->file('recap')->move(public_path('recap'), $validatedData['recap']);
+                    $book->update($validatedData);
+                    return ['status'=>'success','message'=>'Arsip berhasil diupdate']; 
+                }
+                else{
+                    // Update book
+                    $book->update($validatedData);   
+                    return ['status'=>'success','message'=>'Arsip berhasil diedit.']; 
+                }
+            }
         }else{
             return ['status'=>'error','message'=>'Arsip tidak ditemukan'];
         }
@@ -102,6 +149,14 @@ class AdminBook extends Controller
 
         //Check if book is found
         if($book){
+
+             // Delete old recap
+             if($book->recap){
+                $img_path = public_path().'/recap/'.$book->recap;
+                unlink($img_path);         // Delete image
+            }
+
+            // Delete book
             Book::destroy($request->id);    // Delete Book
             return ['status'=>'success','message'=>'Arsip berhasil dihapus'];
         }else{
