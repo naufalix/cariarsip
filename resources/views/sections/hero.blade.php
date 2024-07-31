@@ -12,7 +12,7 @@
     <!-- Slide 1 -->
     <div class="carousel-item active">
       <div class="carousel-container">
-        <h2 class="animate__animated animate__fadeInDown">Selamat datang <span>CARIARSIP</span></h2>
+        <h2 class="animate__animated animate__fadeInDown">Selamat datang di <span>CARIARSIP</span></h2>
         <p class="animate__animated animate__fadeInUp">Cariarsip adalah Suatu Sistem pencarian arsip sebagai saranan pemberian pelayanan informasi arsip yang lengkap, akurat, mudah dan cepat.</p>
         <div class="row col-12 justify-content-center animate__animated animate__fadeInUp">
           <div class="col-12 col-md-8">
