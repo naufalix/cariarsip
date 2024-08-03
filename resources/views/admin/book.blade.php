@@ -23,7 +23,7 @@
             <thead>
               <tr>
                 <th style="width: 100px">Rak</th>
-                <th style="width: 120px">Nomor outner</th>
+                <th style="width: 120px">Nomor ordner</th>
                 <th style="width: 80px">Tahun</th>
                 <th>Judul arsip</th>
                 <th style="width: 180px">Terakhir diubah</th>
@@ -80,7 +80,7 @@
           </div>
           <div class="form-group row">
             <div class="col-6">
-              <label>Nomor outner</label>
+              <label>Nomor ordner</label>
               <input type="number" class="form-control" id="outner" name="outner" required>
             </div>
             <div class="col-6">
@@ -98,7 +98,7 @@
               <input type="number" class="form-control" id="year" name="year" required>
             </div>
             <div class="col-8">
-              <label>Upload rekap</label>
+              <label>Upload rekap (PDF)</label>
               <input type="file" class="form-control" id="recap" name="recap">
             </div>
           </div>
@@ -132,7 +132,7 @@
           </div>
           <div class="form-group row">
             <div class="col-6">
-              <label>Nomor outner</label>
+              <label>Nomor ordner</label>
               <input type="number" class="form-control" id="eot" name="outner" required>
             </div>
             <div class="col-6">
@@ -150,7 +150,7 @@
               <input type="number" class="form-control" id="eyr" name="year" required>
             </div>
             <div class="col-8">
-              <label>Upload rekap</label>
+              <label>Upload rekap (PDF)</label>
               <input type="file" class="form-control" id="erc" name="recap">
             </div>
           </div>

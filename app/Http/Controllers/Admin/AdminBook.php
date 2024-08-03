@@ -14,7 +14,7 @@ class AdminBook extends Controller
         if(auth()->user()->role=="admin"){
             return view('admin.book',[
                 "title" => "Manage Arsip",
-                "books" => Book::all(),
+                "books" => Book::orderBy('updated_at', 'DESC')->get(),
                 "racks" => Rack::all(),
             ]);
         }else{
@@ -62,9 +62,9 @@ class AdminBook extends Controller
                     'title' => 'required',
                     'outner' => 'required|numeric',
                     'year' => 'required|numeric',
-                    'recap' => 'required|image|file|max:1024',
+                    'recap' => 'required|file|mimes:pdf|max:1024',
                 ]);
-                $validatedData['recap'] = time().".png";
+                $validatedData['recap'] = time().".pdf";
                 $request->file('recap')->move(public_path('recap'), $validatedData['recap']);
                 
                 // Create new book
@@ -113,7 +113,7 @@ class AdminBook extends Controller
                         'title' => 'required',
                         'outner' => 'required|numeric',
                         'year' => 'required|numeric',
-                        'recap' => 'required|image|file|max:1024',
+                        'recap' => 'required|file|mimes:pdf|max:1024',
                     ]);
 
                     // Delete old recap
@@ -123,7 +123,7 @@ class AdminBook extends Controller
                     }
                     
                     // Upload new recap
-                    $validatedData['recap'] = time().".png";
+                    $validatedData['recap'] = time().".pdf";
                     $request->file('recap')->move(public_path('recap'), $validatedData['recap']);
                     $book->update($validatedData);
                     return ['status'=>'success','message'=>'Arsip berhasil diupdate']; 

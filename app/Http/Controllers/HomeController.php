@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index(){
         return view('home',[
             "title" => "Cari Arsip | Homepage",
-            "books" => Book::all(),
+            "books" => Book::orderBy('updated_at', 'DESC')->get(),
             "rack" => Book::all()
         ]);
     }
