@@ -39,7 +39,7 @@
                 <td>
                   <span class="badge bg-success">{{ $b->rack->name }}</span>
                 </td>
-                <td>{{ $b->outner }}</td>
+                <td>{{ $b->ordner }}</td>
                 <td>{{ $b->year }}</td>
                 <td>{{ $b->title }}</td>
                 <td>{{ date_format($updated,"d F Y H:i") }}</td>
@@ -81,7 +81,7 @@
           <div class="form-group row">
             <div class="col-6">
               <label>Nomor ordner</label>
-              <input type="number" class="form-control" id="outner" name="outner" required>
+              <input type="number" class="form-control" id="ordner" name="ordner" required>
             </div>
             <div class="col-6">
               <label>Pilih Rak</label>
@@ -133,7 +133,7 @@
           <div class="form-group row">
             <div class="col-6">
               <label>Nomor ordner</label>
-              <input type="number" class="form-control" id="eot" name="outner" required>
+              <input type="number" class="form-control" id="eot" name="ordner" required>
             </div>
             <div class="col-6">
               <label>Pilih Rak</label>
@@ -202,7 +202,7 @@
         $("#eid").val(id);
         $("#eti").val(mydata.title);
         $("#eyr").val(mydata.year);
-        $("#eot").val(mydata.outner);
+        $("#eot").val(mydata.ordner);
         $("#eri").val(mydata.rack_id);
         $("#et").text("Edit "+mydata.title);
       }

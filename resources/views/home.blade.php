@@ -27,6 +27,7 @@
             <tr>
               <th class="d-none">No</th>
               <th style="width: 100px">Rak</th>
+              <th style="width: 100px">Kategori</th>
               <th style="width: 150px">Nomor ordner</th>
               <th style="width: 150px">Tahun</th>
               <th>Nama arsip</th>
@@ -44,7 +45,8 @@
                   {{-- <span class="badge bg-success">{{ $b->rack->name }}</span> --}}
                   {{ $b->rack->name }}
                 </td>
-                <td>{{ $b->outner }}</td>
+                <td>{{ $b->category->name }}</td>
+                <td>{{ $b->ordner }}</td>
                 <td>{{ $b->year }}</td>
                 <td>{{ $b->title }}</td>
                 <td>

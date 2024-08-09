@@ -65,6 +65,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="/admin/category" class="nav-link">
+            <i class="nav-icon fa fa-th-large"></i>
+            <p>Data Kategori</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="/admin/user" class="nav-link">
             <i class="nav-icon fa fa-user"></i>
             <p>Pengaturan User</p>

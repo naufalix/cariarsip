@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Rack;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,12 +30,15 @@ class DatabaseSeeder extends Seeder
             "role" => "admin",  
         ]);
 
+        Category::create(["name" => "Arsip"]);
+        Category::create(["name" => "Buku"]);
+        
         Rack::create(["name" => "Rak 1"]);
         Rack::create(["name" => "Rak 2"]);
         Rack::create(["name" => "Rak 3"]);
         
-        Book::create(["title" => "Buku 1","rack_id" => 1,"year"=>2024,"outner" => 1001,"recap"=>""]);
-        Book::create(["title" => "Buku 2","rack_id" => 2,"year"=>2024,"outner" => 1002,"recap"=>""]);
-        Book::create(["title" => "Buku 3","rack_id" => 3,"year"=>2024,"outner" => 1003,"recap"=>""]);
+        Book::create(["title" => "Buku 1", "category_id" => 1, "rack_id" => 1, "year"=>2024, "ordner" => 1001, "recap"=>""]);
+        Book::create(["title" => "Buku 2", "category_id" => 2, "rack_id" => 2, "year"=>2024, "ordner" => 1002, "recap"=>""]);
+        Book::create(["title" => "Buku 3", "category_id" => 1, "rack_id" => 3, "year"=>2024, "ordner" => 1003, "recap"=>""]);
     }
 }

@@ -44,11 +44,11 @@ class AdminBook extends Controller
         $validatedData = $request->validate([
             'rack_id' => 'required|numeric',
             'title' => 'required',
-            'outner' => 'required|numeric',
+            'ordner' => 'required|numeric',
             'year' => 'required|numeric'
         ]);
 
-        $book = Book::whereOutner($request->outner)->first();
+        $book = Book::whereordner($request->ordner)->first();
 
         // Check book code
         if(!$book){
@@ -60,7 +60,7 @@ class AdminBook extends Controller
                 $validatedData = $request->validate([
                     'rack_id' => 'required|numeric',
                     'title' => 'required',
-                    'outner' => 'required|numeric',
+                    'ordner' => 'required|numeric',
                     'year' => 'required|numeric',
                     'recap' => 'required|file|mimes:pdf|max:1024',
                 ]);
@@ -88,20 +88,20 @@ class AdminBook extends Controller
             'id' => 'required|numeric',
             'rack_id' => 'required|numeric',
             'title' => 'required',
-            'outner' => 'required|numeric',
+            'ordner' => 'required|numeric',
             'year' => 'required|numeric'
         ]);
 
         $book = Book::find($request->id);
-        $oldOutner = $book->outner;
-        $newOutner = $request->outner;
+        $oldordner = $book->ordner;
+        $newordner = $request->ordner;
 
 
         //Check if the book is found
         if($book){
             //Check code
-            if($newOutner!=$oldOutner && Book::whereOutner($request->outner)->first()){
-                return ['status'=>'error','message'=>'Outner telah terpakai'];
+            if($newordner!=$oldordner && Book::whereordner($request->ordner)->first()){
+                return ['status'=>'error','message'=>'ordner telah terpakai'];
             }
             else{
                 // Check book recap
@@ -111,7 +111,7 @@ class AdminBook extends Controller
                     $validatedData = $request->validate([
                         'rack_id' => 'required|numeric',
                         'title' => 'required',
-                        'outner' => 'required|numeric',
+                        'ordner' => 'required|numeric',
                         'year' => 'required|numeric',
                         'recap' => 'required|file|mimes:pdf|max:1024',
                     ]);
