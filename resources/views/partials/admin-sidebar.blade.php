@@ -1,10 +1,18 @@
+<style>
+  .sidebar-collapse .logo-mini{display: block !important}
+  .sidebar-collapse .logo-main{display: none}
+  .sidebar-collapse .text-logout{display: none}
+</style>
+
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   
   <!-- Brand Logo -->
   <a href="/admin" class="brand-link">
     <div class="d-flex">
-      <img class="mx-auto" src="/dist/img/spm-logo.png" alt="SPM Logo" style="max-width: 150px;">
+      <img class="mx-auto logo-mini d-none" src="/dist/img/logo-mini.png" alt="SPM Logo" style="max-width: 42px;">
+      <img class="mx-auto logo-main" src="/dist/img/spm-logo.png" alt="SPM Logo" style="max-width: 150px;">
     </div>
   </a>
 
@@ -109,8 +117,14 @@
     <!-- /.sidebar-menu -->
     <div class="d-flex mt-2">
 
+      {{-- <a href="/logout" class="btn btn-danger mx-auto d-flex">
+        <i class="my-auto fa fa-sign-out-alt"></i>
+        <p class="m-0 ml-2 text-logout">Logout</p>
+      </a> --}}
+
       <a href="/logout" class="btn btn-danger mx-auto">
-        Logout
+        <i class="fa fa-sign-out-alt"></i>
+        <span class="text-logout">Logout</span>
       </a>
     </div>
     
