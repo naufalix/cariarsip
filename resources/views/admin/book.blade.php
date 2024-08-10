@@ -22,12 +22,12 @@
           <table id="myTable" class="table table-bordered" style="min-width: 800px">
             <thead>
               <tr>
-                <th style="width: 100px">Rak</th>
+                <th style="width: 100px">Rak/Kategori</th>
                 <th style="width: 120px">Nomor ordner</th>
                 <th style="width: 80px">Tahun</th>
                 <th>Judul arsip</th>
                 <th style="width: 180px">Terakhir diubah</th>
-                <th style="width: 200px">Actions</th>
+                <th style="width: 150px">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -38,6 +38,7 @@
               <tr>
                 <td>
                   <span class="badge bg-success">{{ $b->rack->name }}</span>
+                  <span class="badge bg-primary">{{ $b->category->name }}</span>
                 </td>
                 <td>{{ $b->ordner }}</td>
                 <td>{{ $b->year }}</td>
@@ -74,14 +75,24 @@
       <form method="post" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
-          <div class="form-group">
-            <label>Judul arsip</label>
+          <div class="form-group row">
+            <div class="col-9">
+              <label>Judul arsip</label>
             <input class="form-control" name="title" id="title" required>
+            </div>
+            <div class="col-3">
+              <label>Tahun</label>
+              <input type="number" class="form-control" id="year" name="year" required>
+            </div>
           </div>
           <div class="form-group row">
             <div class="col-6">
-              <label>Nomor ordner</label>
-              <input type="number" class="form-control" id="ordner" name="ordner" required>
+              <label>Pilih Kategori</label>
+              <select class="form-control" id="category_id" name="category_id" required>
+                @foreach ($categories as $c)
+                  <option value="{{$c->id}}">{{$c->name}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="col-6">
               <label>Pilih Rak</label>
@@ -94,8 +105,8 @@
           </div>
           <div class="form-group row">
             <div class="col-4">
-              <label>Tahun</label>
-              <input type="number" class="form-control" id="year" name="year" required>
+              <label>Nomor ordner</label>
+              <input type="number" class="form-control" id="ordner" name="ordner" required>
             </div>
             <div class="col-8">
               <label>Upload rekap (PDF)</label>
@@ -126,14 +137,24 @@
         @csrf
         <input type="hidden" class="d-none" id="eid" name="id">
         <div class="modal-body">
-          <div class="form-group">
-            <label>Judul arsip</label>
+          <div class="form-group row">
+            <div class="col-9">
+              <label>Judul arsip</label>
             <input class="form-control" name="title" id="eti" required>
+            </div>
+            <div class="col-3">
+              <label>Tahun</label>
+              <input type="number" class="form-control" id="eyr" name="year" required>
+            </div>
           </div>
           <div class="form-group row">
             <div class="col-6">
-              <label>Nomor ordner</label>
-              <input type="number" class="form-control" id="eot" name="ordner" required>
+              <label>Pilih Kategori</label>
+              <select class="form-control" id="eci" name="category_id" required>
+                @foreach ($categories as $c)
+                  <option value="{{$c->id}}">{{$c->name}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="col-6">
               <label>Pilih Rak</label>
@@ -146,12 +167,12 @@
           </div>
           <div class="form-group row">
             <div class="col-4">
-              <label>Tahun</label>
-              <input type="number" class="form-control" id="eyr" name="year" required>
+              <label>Nomor ordner</label>
+              <input type="number" class="form-control" id="eod" name="ordner" required>
             </div>
             <div class="col-8">
               <label>Upload rekap (PDF)</label>
-              <input type="file" class="form-control" id="erc" name="recap">
+              <input type="file" class="form-control" name="recap">
             </div>
           </div>
         </div>
@@ -202,8 +223,9 @@
         $("#eid").val(id);
         $("#eti").val(mydata.title);
         $("#eyr").val(mydata.year);
-        $("#eot").val(mydata.ordner);
+        $("#eod").val(mydata.ordner);
         $("#eri").val(mydata.rack_id);
+        $("#eci").val(mydata.category_id);
         $("#et").text("Edit "+mydata.title);
       }
     });

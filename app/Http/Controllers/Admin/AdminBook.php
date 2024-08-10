@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Rack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,7 @@ class AdminBook extends Controller
                 "title" => "Manage Arsip",
                 "books" => Book::orderBy('updated_at', 'DESC')->get(),
                 "racks" => Rack::all(),
+                "categories" => Category::all(),
             ]);
         }else{
             return redirect('/admin/dashboard')->with("info","Anda tidak memiliki akses");
@@ -43,6 +45,7 @@ class AdminBook extends Controller
     public function store(Request $request){
         $validatedData = $request->validate([
             'rack_id' => 'required|numeric',
+            'category_id' => 'required|numeric',
             'title' => 'required',
             'ordner' => 'required|numeric',
             'year' => 'required|numeric'
@@ -59,6 +62,7 @@ class AdminBook extends Controller
                 // Validate data & move file
                 $validatedData = $request->validate([
                     'rack_id' => 'required|numeric',
+                    'category_id' => 'required|numeric',
                     'title' => 'required',
                     'ordner' => 'required|numeric',
                     'year' => 'required|numeric',
@@ -87,6 +91,7 @@ class AdminBook extends Controller
         $validatedData = $request->validate([
             'id' => 'required|numeric',
             'rack_id' => 'required|numeric',
+            'category_id' => 'required|numeric',
             'title' => 'required',
             'ordner' => 'required|numeric',
             'year' => 'required|numeric'
@@ -110,6 +115,7 @@ class AdminBook extends Controller
                     // Validate data & move file
                     $validatedData = $request->validate([
                         'rack_id' => 'required|numeric',
+                        'category_id' => 'required|numeric',
                         'title' => 'required',
                         'ordner' => 'required|numeric',
                         'year' => 'required|numeric',
