@@ -73,14 +73,14 @@
         <div class="modal-body">
           <div class="form-group row">
             <div class="col-8">
-              <label>Nama mitra</label>
+              <label>Nama user</label>
               <input type="text" class="form-control" id="name" name="name" placeholder="Nama user..." required>
             </div>
             <div class="col-4">
               <label>Role</label>
               <select class="form-control" id="role" name="role" required>
                 <option value="admin">Admin</option>
-                <option value="mitra">Mitra</option>
+                <option value="user">User</option>
               </select>
             </div>
           </div>
@@ -120,14 +120,14 @@
         <div class="modal-body">
           <div class="form-group row">
             <div class="col-8">
-              <label>Nama mitra</label>
+              <label>Nama user</label>
               <input type="text" class="form-control" id="enm" name="name" placeholder="Nama user..." required>
             </div>
             <div class="col-4">
               <label>Role</label>
               <select class="form-control" id="erl" name="role" required>
                 <option value="admin">Admin</option>
-                <option value="mitra">Mitra</option>
+                <option value="user">User</option>
               </select>
             </div>
           </div>
