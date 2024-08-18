@@ -27,7 +27,7 @@
           <div class="col-12 col-md-1">
             <a href="#" class="btn-get-started m-2" onclick="setSearchValue()">CARI</a>
           </div>
-          <div class="row col-12 mt-4">  
+          <div class="row col-12 mt-4 justify-content-center">  
             @foreach ($categories as $c)
               @php
                 $thisYear = now()->year;  // Get the current year
