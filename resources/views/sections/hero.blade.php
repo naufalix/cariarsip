@@ -1,7 +1,13 @@
 <style>
   #hero {  
     padding: 100px 0px 50px 0px;
-    height: 500px;
+    height: auto;
+  }
+  #hero .card-body{
+    background-image: url(/assets/img/arsip.png);
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: 90% center;
   }
 </style>
 
@@ -21,6 +27,23 @@
           <div class="col-12 col-md-1">
             <a href="#" class="btn-get-started m-2" onclick="setSearchValue()">CARI</a>
           </div>
+          <div class="row col-12 mt-4">  
+            @foreach ($categories as $c)
+              @php
+                $thisYear = now()->year;  // Get the current year
+                $count = $c->book()->where('year', $thisYear)->count();
+              @endphp
+              <div class="col-12 col-md-3 mb-3">
+                <div class="card">
+                  <div class="card-body rounded bg-white text-start px-4">
+                    <span class="text-primary">Jumlah {{$c->name}} {{$thisYear}}</span>
+                    <p class="mb-2"></p>
+                    <span class="h2 text-dark fw-bold">{{$count}}</span>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
         </div>
       </div>
     </div>
@@ -34,4 +57,5 @@
     </a> --}}
 
   </div>
+
 </section><!-- End Hero -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Rack;;
 
 class HomeController extends Controller
@@ -18,7 +19,7 @@ class HomeController extends Controller
         return view('home',[
             "title" => "Cari Arsip | Homepage",
             "books" => Book::orderBy('updated_at', 'DESC')->get(),
-            "rack" => Book::all()
+            "categories" => Category::orderBy('name', 'ASC')->get()
         ]);
     }
 
