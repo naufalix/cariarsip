@@ -20,8 +20,25 @@
       <div class="carousel-container">
         <h2 class="animate__animated animate__fadeInDown">Selamat datang di <span>CARIARSIP</span></h2>
         <p class="animate__animated animate__fadeInUp">Cariarsip adalah Suatu Sistem pencarian arsip sebagai saranan pemberian pelayanan informasi arsip yang lengkap, akurat, mudah dan cepat.</p>
+        
+        <form method="post" style="display: contents">
+          <div class="row col-12 justify-content-center animate__animated animate__fadeInUp">
+            @csrf
+            <div class="p-0 d-flex" style="width: auto">
+              <p class="my-auto ms-auto">Year: </p>
+            </div>
+            <div style="width: auto">
+              <select class="form-select m-2 py-2 px-4" name="year" id="year" style="border-radius: 20px" onchange="this.form.submit()">
+                @foreach ($yearcount as $y)
+                  <option value="{{$y->year}}" @if($year==$y->year) selected @endif>{{$y->year}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>  
+        </form>
+        
         <div class="row col-12 justify-content-center animate__animated animate__fadeInUp">
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-md-6">
             <input id="keyword" type="text" class="form-control m-2 py-2 px-4" placeholder="Masukkan keyword..." style="border-radius: 20px">
           </div>
           <div class="col-12 col-md-1">
@@ -31,12 +48,12 @@
             @foreach ($categories as $c)
               @php
                 $thisYear = now()->year;  // Get the current year
-                $count = $c->book()->where('year', $thisYear)->count();
+                $count = $c->book()->where('year', $year)->count();
               @endphp
               <div class="col-12 col-md-3 mb-3">
                 <div class="card">
                   <div class="card-body rounded bg-white text-start px-4">
-                    <span class="text-primary">Jumlah {{$c->name}} {{$thisYear}}</span>
+                    <span class="text-primary">Jumlah {{$c->name}} {{$year}}</span>
                     <p class="mb-2"></p>
                     <span class="h2 text-dark fw-bold">{{$count}}</span>
                   </div>
@@ -45,6 +62,7 @@
             @endforeach
           </div>
         </div>
+
       </div>
     </div>
 

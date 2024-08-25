@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Category;
-use App\Models\Rack;;
+use App\Models\Rack;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -16,10 +17,13 @@ class HomeController extends Controller
     }
 
     public function index(){
+        $year = request('year') ?? date('Y');
         return view('home',[
             "title" => "Cari Arsip | Homepage",
-            "books" => Book::orderBy('updated_at', 'DESC')->get(),
-            "categories" => Category::orderBy('name', 'ASC')->get()
+            "books" => Book::where('year', $year)->orderBy('updated_at', 'DESC')->get(),
+            "categories" => Category::orderBy('name', 'ASC')->get(),
+            "year" => $year,
+            "yearcount" => Book::select('year', DB::raw('count(*) as total'))->groupBy('year')->get()
         ]);
     }
 
