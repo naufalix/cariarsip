@@ -8,13 +8,37 @@
   </div><!-- /.container-fluid -->
 </section>
 
+<style>
+  
+  @media (max-width: 1199px) {
+    #chead {zoom: 0.8}
+  }
+</style>
+
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
     <div class="card">
-      <div class="card-header d-flex">
-        <h3 class="card-title my-auto">Data Kategori</h3>
-        <button class="ml-auto btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah</button>
+      <div class="card-header d-flex" id="chead">
+        <h3 class="card-title my-auto">Data Kategori {{$year}}</h3>
+        <div class="ml-auto d-flex border p-2 mr-3 rounded">
+          <p class="my-auto mx-2">Year : </p>
+          <form id="form-year" method="post">
+            @csrf
+            <select class="form-select" name="year" id="year" onchange="submitForm()">
+              @foreach ($yearcount as $y)
+              <option value="{{$y->year}}" @if($year==$y->year) selected @endif>{{$y->year}}</option>
+              @endforeach
+            </select>
+            <button type="submit" class="d-none" id="btn-filter" name="submit" value="filter">Submit</button>
+          </form>
+        </div>
+        <script>
+          function submitForm() {
+            document.getElementById('btn-filter').click();
+          }
+        </script>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah</button>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -34,7 +58,7 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{ $c->name }}</td>
                 <td>
-                  <span class="badge bg-success">{{ $c->book()->count() }} Arsip</span>
+                  <span class="badge bg-success">{{ $c->book()->where('year', $year)->count() }} Arsip</span>
                 </td>
                 <td>
                   <button class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#edit" onclick="edit({{$c->id}})"><i class="fa fa-pen"></i></buuton>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminCategory extends Controller
@@ -13,7 +15,9 @@ class AdminCategory extends Controller
         if(auth()->user()->role=="admin"){
             return view('admin.category',[
                 "title" => "Manage Kategori",
-                "categories" => category::all()
+                "categories" => category::all(),
+                "year" => request('year') ?? date('Y'),
+                "yearcount" => Book::select('year', DB::raw('count(*) as total'))->groupBy('year')->get()
             ]);
         }else{
             return redirect('/admin/dashboard')->with("info","Anda tidak memiliki akses");
@@ -21,6 +25,14 @@ class AdminCategory extends Controller
     }
 
     public function postHandler(Request $request){
+        if($request->submit=="filter"){
+            return view('admin.category',[
+                "title" => "Manage Kategori",
+                "categories" => category::all(),
+                "year" => request('year') ?? date('Y'),
+                "yearcount" => Book::select('year', DB::raw('count(*) as total'))->groupBy('year')->get()
+            ]);
+        }
         if($request->submit=="store"){
             $res = $this->store($request);
             return redirect('/admin/category')->with($res['status'],$res['message']);
